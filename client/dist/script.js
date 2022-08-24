@@ -11,34 +11,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a;
 var dat;
 function userCreatedDate() {
-    console.log("Called");
-    return function (target, key, descriptor) {
-        var val = descriptor.value;
-        descriptor.value = function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
-            }
-            var arr = [];
-            console.log(args[0].target[0].value);
-            for (var j = 0; j < 7; j++) {
-                arr.push(args[0].target[j].value);
-            }
-            var d = new Date();
-            var dt = d.getDate() +
-                " " +
-                d.toLocaleString("en-US", { month: "long" }) +
-                " " +
-                d.getFullYear() +
-                " Time: " +
-                d.getHours() +
-                ":" +
-                d.getMinutes();
-            arr.push(dt.toString());
-            dat = dt.toString();
-            //   console.log(dat);
-            return val.apply(this, [arr]);
-        };
+    return function (target, propertyKey, descriptor) {
+        var d = new Date();
+        var dt = d.getDate() +
+            " " +
+            d.toLocaleString("en-US", { month: "long" }) +
+            " " +
+            d.getFullYear() +
+            " Time: " +
+            d.getHours() +
+            ":" +
+            d.getMinutes();
+        dat = dt.toString();
     };
 }
 var User = /** @class */ (function () {
@@ -46,13 +30,74 @@ var User = /** @class */ (function () {
         this.UsersData = UsersData;
     }
     User.prototype.addUser = function (arr) {
-        this.UsersData.push(arr);
+        console.log(arr.target[1].value);
+        var newUser = [];
+        for (var i = 0; i < arr.target.length; i++) {
+            newUser.push(arr.target[i].value);
+        }
+        newUser.push(dat);
+        UsersData.push(newUser);
         var placeholder = document.querySelector("#data-output");
         var out = "";
-        out = "<tr>\n<td>" + arr[0] + " </td>\n<td>" + arr[1] + "</td>\n<td>" + arr[2] + "</td>\n<td>" + arr[3] + "</td>\n<td>" + arr[4] + "</td>\n<td>" + arr[5] + "</td>\n<td>" + arr[6] + "</td>\n<td>" + dat + "</td>\n\n<td id=\"buttons\"><button onclick=\"buttons(this)\">Edit</button> <button onclick=\"removeTr(this)\">Delete</button></button></td>\n</tr>";
+        out = "<tr>\n<td>" + newUser[0] + " </td>\n<td>" + newUser[1] + "</td>\n<td>" + newUser[2] + "</td>\n<td>" + newUser[3] + "</td>\n<td>" + newUser[4] + "</td>\n<td>" + newUser[5] + "</td>\n<td>" + newUser[6] + "</td>\n<td>" + dat + "</td>\n\n<td id=\"buttons\"><button onclick=\"buttons(this)\">Edit</button> <button onclick=\"removeTr(this)\">Delete</button></button></td>\n</tr>";
         placeholder.innerHTML += out;
         console.log(out);
         console.log(user);
+    };
+    User.prototype.buttons = function (e) {
+        var ide = e.parentNode.parentNode;
+        var prevData = ide;
+        console.log(ide);
+        ide.contentEditable = "true";
+        ide.id = "edit";
+        console.log("edit");
+        document.getElementById("buttons").contentEditable = "false";
+        //  var editElem = document.getElementById("edit");
+        var saveBtn = document.getElementById("saveid");
+        if (!saveBtn) {
+            //#myElementID element DOES NOT exist
+            var savebutton = document.createElement("button");
+            savebutton.innerHTML = "Save";
+            savebutton.className = "save";
+            savebutton.id = "saveid";
+            document.getElementById("btn").appendChild(savebutton);
+            savebutton.onclick = function () {
+                saveEdits();
+            };
+        }
+        var cancelBtn = document.getElementById("cancelid");
+        if (!cancelBtn) {
+            //#myElementID element DOES NOT exist
+            var cancelButton = document.createElement("button");
+            cancelButton.innerHTML = "Cancel";
+            cancelButton.className = "cancel";
+            cancelButton.id = "cancelid";
+            document.getElementById("btn").appendChild(cancelButton);
+            cancelButton.onclick = function () {
+                cancelTr(prevData, this, cancelButton, savebutton);
+            };
+        }
+        function saveEdits() {
+            console.log("saveEdits");
+            //get the editable element
+            var editElem = document.getElementById("edit");
+            //get the edited element content
+            var userVersion = editElem.innerHTML;
+            //save the content to local storage
+            localStorage.userEdits = userVersion;
+            //write a confirmation to the user
+            //   document.getElementById("update").innerHTML="Edits saved!";
+            document.getElementById("btn").removeChild(savebutton);
+            document.getElementById("btn").removeChild(cancelButton);
+            savebutton.addEventListener("click", saveEdits);
+        }
+    };
+    User.prototype.removeTr = function (e) {
+        var ide = e.parentNode.parentNode;
+        console.log(ide);
+        var p = ide.parentNode;
+        p.removeChild(ide);
+        // document.getElementById("btn").removeChild(savebutton);
     };
     __decorate([
         userCreatedDate(),
@@ -76,7 +121,7 @@ function hideTable() {
 function load() {
     document.getElementById("load").innerText = "Refresh Data";
     document.getElementById("table").style.visibility = "visible";
-    fetch("data.json")
+    fetch("/server/src/users/data.json")
         .then(function (response) {
         return response.json();
     })
@@ -84,26 +129,24 @@ function load() {
         var placeholder = document.querySelector("#data-output");
         var out = "";
         var i = 0;
-        for (var _i = 0, users_1 = users; _i < users_1.length; _i++) {
-            var user_1 = users_1[_i];
-            columnData.push(user_1.firstName);
-            columnData.push(user_1.middleName);
-            columnData.push(user_1.lastName);
-            columnData.push(user_1.email);
-            columnData.push(user_1.phoneNumber);
-            columnData.push(user_1.Role);
-            columnData.push(user_1.Address);
-            columnData.push(user_1.Doj);
-            out += "\n             <tr id=\"t" + i + "\">\n                <td>" + user_1.firstName + " </td>\n                <td>" + user_1.middleName + "</td>\n                <td>" + user_1.lastName + "</td>\n                <td>" + user_1.email + "</td>\n                <td>" + user_1.phoneNumber + "</td>\n                <td>" + user_1.Role + "</td>\n                <td>" + user_1.Address + "</td>\n                <td>" + user_1.Doj + "</td>\n                <td id=\"buttons\"><button onclick=\"buttons(this)\">Edit</button> <button onclick=\"removeTr(this)\">Delete</button></button></td>\n               \n             </tr>\n          ";
-            i++;
-            UsersData.push(columnData);
+        var myData = Object.values(users);
+        for (var i_1 = 0; i_1 < myData.length; i_1++) {
+            var columnData_1 = Object.values(myData[i_1]);
+            UsersData.push(columnData_1);
         }
         console.log(UsersData);
+        for (var _i = 0, myData_1 = myData; _i < myData_1.length; _i++) {
+            var userItem = myData_1[_i];
+            var data = void 0;
+            data = Object.values(userItem);
+            console.log(data);
+            out += "\n             <tr id=\"t" + i + "\">\n                <td>" + data[1] + " </td>\n                <td>" + data[2] + "</td>\n                <td>" + data[3] + "</td>\n                <td>" + data[4] + "</td>\n                <td>" + data[5] + "</td>\n                <td>" + data[6] + "</td>\n                <td>" + data[7] + "</td>\n                <td>" + data[8] + "</td>\n                <td id=\"buttons\"><button onclick=\"user.buttons(this)\">Edit</button> <button onclick=\"user.removeTr(this)\">Delete</button></button></td>\n               \n             </tr>\n          ";
+            i++;
+        }
         placeholder.innerHTML = out;
         console.log("loaded");
     });
 }
-console.log(UsersData);
 var user = new User(UsersData);
 (_a = document.getElementById("form")) === null || _a === void 0 ? void 0 : _a.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -126,59 +169,4 @@ function cancelTr(p, e, btn, sbtn) {
     }
     document.getElementById("btn").removeChild(sbtn);
     document.getElementById("btn").removeChild(btn);
-}
-function buttons(e) {
-    var ide = e.parentNode.parentNode;
-    var prevData = ide;
-    console.log(ide);
-    ide.contentEditable = "true";
-    ide.id = "edit";
-    console.log("edit");
-    document.getElementById("buttons").contentEditable = "false";
-    //  var editElem = document.getElementById("edit");
-    var saveBtn = document.getElementById("saveid");
-    if (!saveBtn) {
-        //#myElementID element DOES NOT exist
-        var savebutton = document.createElement("button");
-        savebutton.innerHTML = "Save";
-        savebutton.className = "save";
-        savebutton.id = "saveid";
-        document.getElementById("btn").appendChild(savebutton);
-        savebutton.onclick = function () {
-            saveEdits();
-        };
-    }
-    var cancelBtn = document.getElementById("cancelid");
-    if (!cancelBtn) {
-        //#myElementID element DOES NOT exist
-        var cancelButton = document.createElement("button");
-        cancelButton.innerHTML = "Cancel";
-        cancelButton.className = "cancel";
-        cancelButton.id = "cancelid";
-        document.getElementById("btn").appendChild(cancelButton);
-        cancelButton.onclick = function () {
-            cancelTr(prevData, this, cancelButton, savebutton);
-        };
-    }
-    function saveEdits() {
-        console.log("saveEdits");
-        //get the editable element
-        var editElem = document.getElementById("edit");
-        //get the edited element content
-        var userVersion = editElem.innerHTML;
-        //save the content to local storage
-        localStorage.userEdits = userVersion;
-        //write a confirmation to the user
-        //   document.getElementById("update").innerHTML="Edits saved!";
-        document.getElementById("btn").removeChild(savebutton);
-        document.getElementById("btn").removeChild(cancelButton);
-        savebutton.addEventListener("click", saveEdits);
-    }
-}
-function removeTr(e) {
-    var ide = e.parentNode.parentNode;
-    console.log(ide);
-    var p = ide.parentNode;
-    p.removeChild(ide);
-    // document.getElementById("btn").removeChild(savebutton);
 }
