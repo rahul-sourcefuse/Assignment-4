@@ -1,0 +1,124 @@
+{
+  "1": {
+    "id": 1,
+    "firstName": "Rahul",
+    "middleName": "preet",
+    "lastName": "singh",
+    "email": "abc@gmail.com",
+    "phoneNumber": 9041297701,
+    "Role": "admin",
+    "Address": "HNo. 420 abc street xyz road klm city ",
+    "Doj": "11 June 2022 Time: 06:18"
+  },
+  "2": {
+    "id": 2,
+    "firstName": "Rahul2",
+    "middleName": "singh",
+    "lastName": "preet",
+    "email": "xyz@gmail.com",
+    "phoneNumber": 9041787701,
+    "Role": "user",
+    "Address": "HNo. 420 abc street xyz road klm city ",
+    "Doj": "11 June 2022 Time: 04:45"
+  },
+  "3": {
+    "id": 3,
+    "firstName": "Rahul",
+    "middleName": "preet",
+    "lastName": "singh",
+    "email": "abc@gmail.com",
+    "phoneNumber": 98981297701,
+    "Role": "user",
+    "Address": "HNo. 420 abc ytuu street xyz road klm city ",
+    "Doj": "26 June 2022 Time: 12:18"
+  },
+  "4": {
+    "id": 4,
+    "firstName": "Rahul",
+    "middleName": "preet",
+    "lastName": "singh",
+    "email": "abc@gmail.com",
+    "phoneNumber": 904789997701,
+    "Role": "user",
+    "Address": "HNo. 420 abccder street xyz road klm city ",
+    "Doj": "5 June 2022 Time: 06:18"
+  },
+  "5": {
+    "id": 5,
+    "firstName": "abcdddddddddddddddddd",
+    "middleName": "mid",
+    "lastName": "last",
+    "email": "c@gmail.com",
+    "phoneNumber": 297701,
+    "Role": "admin",
+    "Address": "reet xyz road klm city ",
+    "Doj": "11 June 20"
+  },
+  "1661323432884": {
+    "id": 1661323432884,
+    "firstName": "Rahul5",
+    "middleName": "preet3",
+    "lastName": "singh3",
+    "email": "abc3@gmail.com",
+    "phoneNumber": 19041297701,
+    "Role": "admin",
+    "Address": "2HNo. 420 abc street xyz road klm city ",
+    "Doj": "2 June 2022 Time: 06:18"
+  },
+  "1661324046520": {
+    "id": 1661324046520,
+    "firstName": "Rahul",
+    "middleName": "preet3",
+    "lastName": "singh3",
+    "email": "abc3@gmail.com",
+    "phoneNumber": 19041297701,
+    "Role": "admin",
+    "Address": "2HNo. 420 abc street xyz road klm city ",
+    "Doj": "2 June 2022 Time: 06:18"
+  },
+  "1661324174147": {
+    "id": 1661324174147,
+    "firstName": "Rahul",
+    "middleName": "preet3",
+    "lastName": "singh3",
+    "email": "abc3@gmail.com",
+    "phoneNumber": 19041297701,
+    "Role": "admin",
+    "Address": "2HNo. 420 abc street xyz road klm city ",
+    "Doj": "2 June 2022 Time: 06:18"
+  },
+  "1661324260450": {
+    "id": 1661324260450,
+    "firstName": "Rahul",
+    "middleName": "p",
+    "lastName": "singh3",
+    "email": "abc3@gmail.com",
+    "phoneNumber": 19041297701,
+    "Role": "admin",
+    "Address": "2HNo. 420 abc street xyz road klm city ",
+    "Doj": "2 June 2022 Time: 06:18"
+  },
+  "1661324461569": {
+    "id": 1661324461569,
+    "firstName": "a",
+    "middleName": "p",
+    "lastName": "a",
+    "email": "abc3@gmail.com",
+    "phoneNumber": 19041297701,
+    "Role": "admin",
+    "Address": "2HNo. 420 abc street xyz road klm city ",
+    "Doj": "2 June 2022 Time: 06:18"
+  },
+  "1661324946161": {
+    "id": 1661324946161,
+    "firstName": "a",
+    "middleName": "p",
+    "lastName": "a",
+    "email": "abc3@gmail.com",
+    "phoneNumber": 19041297701,
+    "Role": "admin",
+    "Address": "2HNo. 420 abc street xyz road klm city ",
+    "Doj": "2 June 2022 Time: 06:18"
+  }
+}
+
